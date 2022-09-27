@@ -1,12 +1,38 @@
-import React from "react";
+import React, { FC } from "react";
 
-interface CardProps {
-  width?: string;
-  height?: string;
+export enum CardVariant {
+  OUTLINED = "outlined",
+  PRIMARY = "primary",
 }
 
-const Card = ({ width, height }: CardProps) => {
-  return <div style={{ background: "blue", width, height }}>Card</div>;
+interface ICardProps {
+  width?: string;
+  height?: string;
+  children?: React.ReactNode;
+  variant: CardVariant;
+  onClick: () => void;
+}
+
+const Card: FC<ICardProps> = ({
+  width,
+  height,
+  children,
+  variant,
+  onClick,
+}) => {
+  return (
+    <div
+      onClick={onClick}
+      style={{
+        background: variant === CardVariant.PRIMARY ? "lightblue" : "",
+        border: variant === CardVariant.OUTLINED ? "1px solid gray" : "none",
+        width,
+        height,
+      }}
+    >
+      {children}
+    </div>
+  );
 };
 
 export default Card;
